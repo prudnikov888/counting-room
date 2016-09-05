@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
  * Created by prudnikov on 21.06.2015.
  */
 public class Entry implements Serializable {
+    //Test commit
     private long entryId;
     private GregorianCalendar date;
     private double sum;
