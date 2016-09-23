@@ -1,25 +1,39 @@
 package pojos;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
 public class Entry implements Serializable {
+
+    @Id
+    @GeneratedValue
     private long entryId;
-    private GregorianCalendar date;
+
+    @Column(name = "'timestamp'")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
+    @Basic
     private double sum;
+
+    @Basic
     private String currency;
+
+
     private Account debit;
+
     private Account credit;
+
     public Entry(){
 
     }
 
-    public Entry(GregorianCalendar date, double sum, String currency,Account debit, Account credit) {
+    public Entry(Date date, double sum, String currency,Account debit, Account credit) {
         this.date = date;
         this.sum = sum;
         this.currency = currency;
@@ -35,11 +49,11 @@ public class Entry implements Serializable {
         this.entryId = entryId;
     }
 
-    public GregorianCalendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(GregorianCalendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
