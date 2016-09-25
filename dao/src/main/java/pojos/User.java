@@ -1,26 +1,33 @@
 package pojos;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
+@Entity
 public class User implements Serializable {
+
+    @Id
+    @GeneratedValue
     private long userId;
+
+    @Column
     private String userName;
+
+    @Column
     private String email;
+
+    @Column
     private String password;
+
+    @ManyToMany (cascade = {CascadeType.ALL})
     private List<Role> roles;
 
     public User() {
-    }
-
-    public User(String userName, String email, String password, List<Role> roles) {
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
     }
 
     public long getUserId() {
@@ -65,19 +72,14 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof User) {
-            User temp = (User) obj;
-            if (userId == temp.userId
-                    && userName.equals(temp.userName)
-                    && email.equals(temp.email)
-                    && password.equals(temp.password)
-                    && roles.equals(temp.roles)
-                    )
-                return true;
-            else
-                return false;
-        } else
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
             return false;
+        }
+        User user = (User) obj;
+        return (this.userId == user.userId);
     }
 
     @Override

@@ -1,14 +1,24 @@
 package pojos;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
+@Entity
 public class Category implements Serializable {
+
+    @Id
+    @GeneratedValue
     private long categoryId;
+
+    @Column
     private String categoryName;
+
+    @ManyToMany (mappedBy = "categories")
     private List<Account> accounts;
 
     public Category(){
@@ -45,23 +55,20 @@ public class Category implements Serializable {
 
     @Override
     public boolean equals(Object obj){
-        if (obj instanceof Category) {
-            Category temp = (Category) obj;
-            if (categoryId == temp.categoryId
-                    && categoryName.equals(temp.categoryName)
-                    )
-                return true;
-            else
-                return false;
-        } else
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Category)) {
             return false;
+        }
+        Category category = (Category) obj;
+        return (this.categoryId == category.categoryId);
     }
 
     @Override
     public int hashCode(){
+
         String s = categoryId + "";
         return s.hashCode();
     }
-
-
 }

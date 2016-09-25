@@ -13,9 +13,25 @@
     <module>web</module>
   </modules>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <hibernate.version>5.2.2.Final</hibernate.version>
+    <mysql-connector-java.version>6.0.4</mysql-connector-java.version>
+    <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
   </properties>
 
   <dependencies>
@@ -23,6 +39,11 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql-connector-java.version}</version>
     </dependency>
   </dependencies>
 </project>

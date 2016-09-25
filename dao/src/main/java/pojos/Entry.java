@@ -3,6 +3,7 @@ package pojos;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by prudnikov on 21.06.2015.
@@ -14,33 +15,25 @@ public class Entry implements Serializable {
     @GeneratedValue
     private long entryId;
 
-    @Column(name = "'timestamp'")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @Basic
+    @Column
     private double sum;
 
-    @Basic
+    @Column
     private String currency;
 
-
+    @OneToOne
     private Account debit;
 
+    @OneToOne
     private Account credit;
 
     public Entry(){
 
     }
 
-    public Entry(Date date, double sum, String currency,Account debit, Account credit) {
-        this.date = date;
-        this.sum = sum;
-        this.currency = currency;
-        this.debit = debit;
-        this.credit = credit;
-
-    }
     public long getEntryId() {
         return entryId;
     }
@@ -91,24 +84,19 @@ public class Entry implements Serializable {
 
     @Override
     public boolean equals(Object obj){
-        if (obj instanceof Entry) {
-            Entry temp = (Entry) obj;
-            if (entryId == temp.entryId
-                    && date.equals(temp.date)
-                    && sum == temp.sum
-                    && currency.equals(temp.currency)
-                    && debit.equals(temp.debit)
-                    && credit.equals(temp.credit)
-                    )
-                return true;
-            else
-                return false;
-        } else
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Entry)) {
             return false;
+        }
+        Entry entry = (Entry) obj;
+        return (this.entryId == entry.entryId);
     }
 
     @Override
     public int hashCode() {
+
         String s = entryId + "";
         return s.hashCode();
     }

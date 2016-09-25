@@ -1,25 +1,34 @@
 package pojos;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
+@Entity
 public class Account implements Serializable {
+
+    @Id
+    @GeneratedValue
     private long accountId;
+
+    @Column
     private String accountName;
+
+    @Column
     private double balance;
+
+    @Column
     private String currency;
+
+    @ManyToMany (cascade = {CascadeType.ALL})
     private List<Category> categories;
+
     public Account(){
 
-    }
-    public Account (String accountName, double balance, String currency, List<Category> categories){
-        this.accountName = accountName;
-        this.balance = balance;
-        this.currency = currency;
-        this.categories = categories;
     }
 
     public long getAccountId() {
@@ -64,18 +73,14 @@ public class Account implements Serializable {
 
     @Override
     public boolean equals (Object obj) {
-        if (obj instanceof Account) {
-            Account temp = (Account) obj;
-            if (accountId == temp.accountId
-                    && accountName.equals(temp.accountName)
-                    && balance == temp.balance
-                    && currency.equals(temp.currency)
-                    )
-                return true;
-            else
-                return false;
-        } else
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Account)) {
             return false;
+        }
+        Account account = (Account) obj;
+        return (this.accountId == account.accountId);
     }
 
     @Override
@@ -83,6 +88,4 @@ public class Account implements Serializable {
         String s = accountId + "";
         return s.hashCode();
     }
-
-
 }
