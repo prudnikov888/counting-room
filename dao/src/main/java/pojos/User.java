@@ -1,18 +1,24 @@
 package pojos;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
+@SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = SEQUENCE, generator = "user_seq")
     private long userId;
 
     @Column
@@ -24,7 +30,8 @@ public class User implements Serializable {
     @Column
     private String password;
 
-    @ManyToMany (cascade = {CascadeType.ALL})
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @ManyToMany
     private List<Role> roles;
 
     public User() {

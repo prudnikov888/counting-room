@@ -5,14 +5,17 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 /**
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
+@SequenceGenerator(name = "role_seq", sequenceName = "role_sequence", allocationSize = 1)
 public class Role implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = SEQUENCE, generator = "role_seq")
     private long roleId;
 
     @Column

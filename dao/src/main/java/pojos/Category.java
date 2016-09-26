@@ -1,25 +1,34 @@
 package pojos;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
+@SequenceGenerator(name = "category_seq", sequenceName = "category_sequence", allocationSize = 1)
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = SEQUENCE, generator = "category_seq")
     private long categoryId;
 
     @Column
     private String categoryName;
 
-    @ManyToMany (mappedBy = "categories")
+    @OneToMany (mappedBy = "category")
     private List<Account> accounts;
+
+    @OneToOne
+    private User user;
 
     public Category(){
 
@@ -51,6 +60,14 @@ public class Category implements Serializable {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

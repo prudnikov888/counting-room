@@ -14,6 +14,7 @@
         <property name="show_sql">true</property>
 
         <property name="hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- mappings for annotated classes -->
         <mapping class="pojos.Account"/>
@@ -21,6 +22,7 @@
         <mapping class="pojos.Entry"/>
         <mapping class="pojos.Role"/>
         <mapping class="pojos.User"/>
+        <mapping class="pojos.Currency"/>
 
     </session-factory>
 </hibernate-configuration>

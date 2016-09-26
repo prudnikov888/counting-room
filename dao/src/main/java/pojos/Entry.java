@@ -1,34 +1,46 @@
 package pojos;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
+@SequenceGenerator(name = "entry_seq", sequenceName = "entry_sequence", allocationSize = 1)
 public class Entry implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = SEQUENCE, generator = "entry_seq")
     private long entryId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @Column
-    private double sum;
+    private BigDecimal sum;
 
-    @Column
-    private String currency;
+    @ManyToOne
+    private Currency currency;
 
+    @Cascade({CascadeType.SAVE_UPDATE})
     @OneToOne
     private Account debit;
 
+    @Cascade({CascadeType.SAVE_UPDATE})
     @OneToOne
     private Account credit;
+
+    @OneToOne
+    private User user;
 
     public Entry(){
 
@@ -50,19 +62,19 @@ public class Entry implements Serializable {
         this.date = date;
     }
 
-    public double getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(double sum) {
+    public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
@@ -80,6 +92,14 @@ public class Entry implements Serializable {
 
     public void setCredit(Account credit) {
         this.credit = credit;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
