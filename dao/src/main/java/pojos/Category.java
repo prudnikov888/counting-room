@@ -6,7 +6,9 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -14,12 +16,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
-@SequenceGenerator(name = "category_seq", sequenceName = "category_sequence", allocationSize = 1)
 public class Category implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "category_seq", sequenceName = "category_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "category_seq")
-    private long categoryId;
+    private BigInteger categoryId;
 
     @Column
     private String categoryName;
@@ -38,11 +40,11 @@ public class Category implements Serializable {
         this.categoryName = categoryName;
     }
 
-    public long getCategoryId() {
+    public BigInteger getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(BigInteger categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -79,12 +81,11 @@ public class Category implements Serializable {
             return false;
         }
         Category category = (Category) obj;
-        return (this.categoryId == category.categoryId);
+        return Objects.equals(this.categoryId, category.categoryId);
     }
 
     @Override
     public int hashCode(){
-
         String s = categoryId + "";
         return s.hashCode();
     }

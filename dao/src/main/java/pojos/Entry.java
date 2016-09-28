@@ -7,7 +7,9 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -15,12 +17,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
-@SequenceGenerator(name = "entry_seq", sequenceName = "entry_sequence", allocationSize = 1)
 public class Entry implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "entry_seq", sequenceName = "entry_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "entry_seq")
-    private long entryId;
+    private BigInteger entryId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
@@ -46,11 +48,11 @@ public class Entry implements Serializable {
 
     }
 
-    public long getEntryId() {
+    public BigInteger getEntryId() {
         return entryId;
     }
 
-    public void setEntryId(long entryId) {
+    public void setEntryId(BigInteger entryId) {
         this.entryId = entryId;
     }
 
@@ -111,12 +113,11 @@ public class Entry implements Serializable {
             return false;
         }
         Entry entry = (Entry) obj;
-        return (this.entryId == entry.entryId);
+        return Objects.equals(this.entryId, entry.entryId);
     }
 
     @Override
     public int hashCode() {
-
         String s = entryId + "";
         return s.hashCode();
     }

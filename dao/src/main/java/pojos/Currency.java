@@ -4,6 +4,9 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -11,12 +14,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * Created by anpr0915 on 26.09.2016.
  */
 @Entity
-@SequenceGenerator(name = "currency_seq", sequenceName = "currency_sequence", allocationSize = 1)
 public class Currency implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "currency_seq", sequenceName = "currency_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "currency_seq")
-    private long currencyId;
+    private BigInteger currencyId;
 
     @Column
     private String currencyFullName;
@@ -24,11 +27,12 @@ public class Currency implements Serializable {
     @NaturalId
     private String currencyAbbreviation;
 
-    public long getCurrencyId() {
+
+    public BigInteger getCurrencyId() {
         return currencyId;
     }
 
-    public void setCurrencyId(long currencyId) {
+    public void setCurrencyId(BigInteger currencyId) {
         this.currencyId = currencyId;
     }
 
@@ -57,7 +61,7 @@ public class Currency implements Serializable {
             return false;
         }
         Currency currency = (Currency) obj;
-        return (this.currencyId == currency.currencyId);
+        return Objects.equals(this.currencyId, currency.currencyId);
     }
 
     @Override

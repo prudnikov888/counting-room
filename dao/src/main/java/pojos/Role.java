@@ -2,6 +2,7 @@ package pojos;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,12 +12,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
-@SequenceGenerator(name = "role_seq", sequenceName = "role_sequence", allocationSize = 1)
 public class Role implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "role_seq", sequenceName = "role_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "role_seq")
-    private long roleId;
+    private BigInteger roleId;
 
     @Column
     private String roleName;
@@ -28,11 +29,11 @@ public class Role implements Serializable {
 
     }
 
-    public long getRoleId() {
+    public BigInteger getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(BigInteger roleId) {
         this.roleId = roleId;
     }
 
@@ -61,7 +62,7 @@ public class Role implements Serializable {
             return false;
         }
         Role role = (Role) obj;
-        return (this.roleId == role.roleId);
+        return Objects.equals(this.roleId, role.roleId);
     }
 
     @Override

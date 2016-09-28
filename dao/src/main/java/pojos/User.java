@@ -6,7 +6,9 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -14,12 +16,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
-@SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
 public class User implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "user_seq")
-    private long userId;
+    private BigInteger userId;
 
     @Column
     private String userName;
@@ -34,14 +36,17 @@ public class User implements Serializable {
     @ManyToMany
     private List<Role> roles;
 
+    @OneToMany (mappedBy = "user")
+    private List<Account> accounts;
+
     public User() {
     }
 
-    public long getUserId() {
+    public BigInteger getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(BigInteger userId) {
         this.userId = userId;
     }
 
@@ -77,6 +82,14 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -86,7 +99,7 @@ public class User implements Serializable {
             return false;
         }
         User user = (User) obj;
-        return (this.userId == user.userId);
+        return Objects.equals(this.userId, user.userId);
     }
 
     @Override

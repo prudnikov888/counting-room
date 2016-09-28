@@ -1,12 +1,14 @@
 package pojos;
 
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -15,12 +17,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * Created by prudnikov on 21.06.2015.
  */
 @Entity
-@SequenceGenerator(name = "account_seq", sequenceName = "account_sequence", allocationSize = 1)
 public class Account implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "account_seq", sequenceName = "account_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "account_seq")
-    private long accountId;
+    private BigInteger accountId;
 
     @Column
     private String accountName;
@@ -28,25 +30,27 @@ public class Account implements Serializable {
     @Column
     private BigDecimal balance;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.REFRESH)
+    @JoinColumn
     private Currency currency;
 
-    @OneToOne
+    @ManyToOne (cascade = CascadeType.REFRESH)
+    @JoinColumn
     private User user;
 
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.REFRESH)
+    @JoinColumn
     private Category category;
 
     public Account(){
 
     }
 
-    public long getAccountId() {
+    public BigInteger getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(BigInteger accountId) {
         this.accountId = accountId;
     }
 
@@ -99,7 +103,7 @@ public class Account implements Serializable {
             return false;
         }
         Account account = (Account) obj;
-        return (this.accountId == account.accountId);
+        return Objects.equals(this.accountId, account.accountId);
     }
 
     @Override
