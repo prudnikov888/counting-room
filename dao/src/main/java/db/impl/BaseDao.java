@@ -4,17 +4,21 @@ import db.Dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * Created by anpr0915 on 26.09.2016.
  */
+@Repository
 public class BaseDao<P> implements Dao<P> {
 
     private SessionFactory sessionFactory;
 
+    @Autowired
     public BaseDao (SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -22,6 +26,7 @@ public class BaseDao<P> implements Dao<P> {
     public Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
     }
+
     @Override
     public void saveOrUpdate(P p) {
         Session session = getCurrentSession();

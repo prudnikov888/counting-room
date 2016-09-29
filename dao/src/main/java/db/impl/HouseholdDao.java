@@ -3,16 +3,16 @@ package db.impl;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pojos.Account;
+import pojos.Household;
 
 /**
- * Created by anpr0915 on 26.09.2016.
+ * Created by anpr0915 on 28.09.2016.
  */
 @Repository
-public class AccountDao extends BaseDao<Account> {
+public class HouseholdDao extends BaseDao<Household> {
 
     @Autowired
-    public AccountDao (SessionFactory sessionFactory) {
+    public HouseholdDao(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 }

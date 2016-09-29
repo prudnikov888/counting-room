@@ -1,12 +1,9 @@
 package pojos;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.math.BigInteger;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +18,7 @@ public class User implements Serializable {
     @Id
     @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "user_seq")
-    private BigInteger userId;
+    private long userId;
 
     @Column
     private String userName;
@@ -32,21 +29,21 @@ public class User implements Serializable {
     @Column
     private String password;
 
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @ManyToMany
-    private List<Role> roles;
-
     @OneToMany (mappedBy = "user")
-    private List<Account> accounts;
+    private List<Entry> entries;
+
+    @ManyToOne
+    @JoinColumn (name = "FK_household_id")
+    private Household household;
 
     public User() {
     }
 
-    public BigInteger getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -74,20 +71,20 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<Entry> getEntries() {
+        return entries;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public Household getHousehold() {
+        return household;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setHousehold(Household household) {
+        this.household = household;
     }
 
     @Override
@@ -99,7 +96,7 @@ public class User implements Serializable {
             return false;
         }
         User user = (User) obj;
-        return Objects.equals(this.userId, user.userId);
+        return (this.userId == user.userId);
     }
 
     @Override

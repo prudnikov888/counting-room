@@ -1,15 +1,10 @@
 package pojos;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -22,37 +17,35 @@ public class Entry implements Serializable {
     @Id
     @SequenceGenerator(name = "entry_seq", sequenceName = "entry_sequence", allocationSize = 1)
     @GeneratedValue (strategy = SEQUENCE, generator = "entry_seq")
-    private BigInteger entryId;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private long entryId;
 
     @Column
     private BigDecimal sum;
 
-    @ManyToOne
-    private Currency currency;
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @OneToOne
+    @ManyToOne
+    @JoinColumn (name = "FK_userId")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn (name = "FK_accountId_debit")
     private Account debit;
 
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @OneToOne
+    @ManyToOne
+    @JoinColumn (name = "FK_accountId_credit")
     private Account credit;
-
-    @OneToOne
-    private User user;
 
     public Entry(){
 
     }
 
-    public BigInteger getEntryId() {
+    public long getEntryId() {
         return entryId;
     }
 
-    public void setEntryId(BigInteger entryId) {
+    public void setEntryId(long entryId) {
         this.entryId = entryId;
     }
 
@@ -70,14 +63,6 @@ public class Entry implements Serializable {
 
     public void setSum(BigDecimal sum) {
         this.sum = sum;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
     }
 
     public Account getDebit() {
@@ -113,7 +98,7 @@ public class Entry implements Serializable {
             return false;
         }
         Entry entry = (Entry) obj;
-        return Objects.equals(this.entryId, entry.entryId);
+        return (this.entryId == entry.entryId);
     }
 
     @Override
