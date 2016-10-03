@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import pojos.Account;
@@ -25,6 +26,7 @@ import java.util.List;
  * Created by anpr0915 on 25.09.2016.
  */
 @ContextConfiguration ("/daoContextTest.xml")
+@TransactionConfiguration (transactionManager = "transactionManager", defaultRollback = false)
 @Transactional
 @RunWith (SpringJUnit4ClassRunner.class)
 
