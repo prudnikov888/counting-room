@@ -3,9 +3,7 @@ package db.impl;
 import db.Dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.usertype.ParameterizedType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
@@ -54,6 +52,6 @@ public class BaseDao<P> implements Dao<P> {
     }
 
     private Class getPersistentClass() {
-        return ((ParameterizedType) getClass().getGenericSuperclass()).getClass();
+        return (Class<P>) ((java.lang.reflect.ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }
