@@ -96,6 +96,12 @@ public class DaoTest {
         accountDao.saveOrUpdate(accountFood);
         entryDao.saveOrUpdate(entry);
 
+        Assert.assertNotNull(household.getHouseholdId());
+        Assert.assertNotNull(user.getUserId());
+        Assert.assertNotNull(accountFood.getAccountId());
+        Assert.assertNotNull(accountCash.getAccountId());
+        Assert.assertNotNull(entry.getEntryId());
+
         Assert.assertEquals(household, householdDao.get(household.getHouseholdId()));
         Assert.assertEquals(user, userDao.get(user.getUserId()));
         Assert.assertEquals(accountFood, accountDao.get(accountFood.getAccountId()));

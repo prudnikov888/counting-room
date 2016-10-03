@@ -3,12 +3,14 @@ package sv;
 import db.Dao;
 import db.impl.BaseDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
 /**
  * Created by anpr0915 on 29.09.2016.
  */
+@Service
 public class BaseService<P> implements IService<P> {
 
 
