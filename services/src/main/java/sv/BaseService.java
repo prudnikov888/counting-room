@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by anpr0915 on 29.09.2016.
@@ -39,5 +40,10 @@ public class BaseService<P> implements IService<P> {
     @Override
     public void delete(P p) {
         baseDao.delete(p);
+    }
+
+    @Override
+    public List<P> getAll() {
+        return baseDao.getAll();
     }
 }

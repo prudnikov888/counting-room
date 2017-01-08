@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by anpr0915 on 26.09.2016.
@@ -49,6 +50,12 @@ public class BaseDao<P> implements Dao<P> {
     public void delete(P p) {
         Session session = getCurrentSession();
         session.delete(p);
+    }
+
+    public List<P> getAll() {
+        Session session = getCurrentSession();
+        List<P> entities = session.createCriteria(getPersistentClass()).list();
+        return entities;
     }
 
     private Class getPersistentClass() {

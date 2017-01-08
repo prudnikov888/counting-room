@@ -3,6 +3,7 @@ package sv;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by anpr0915 on 29.09.2016.
@@ -17,4 +18,6 @@ public interface IService<P> {
     P load(Serializable id);
 
     void delete(P p);
+
+    List<P> getAll();
 }
