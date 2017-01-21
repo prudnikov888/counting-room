@@ -3,6 +3,7 @@ package db;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,4 +19,6 @@ public interface Dao<P> {
     P load(Serializable id);
 
     void delete(P p);
+
+    List<P> getAll();
 }

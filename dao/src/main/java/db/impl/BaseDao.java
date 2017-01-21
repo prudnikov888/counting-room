@@ -52,6 +52,7 @@ public class BaseDao<P> implements Dao<P> {
         session.delete(p);
     }
 
+    @Override
     public List<P> getAll() {
         Session session = getCurrentSession();
         List<P> entities = session.createCriteria(getPersistentClass()).list();
