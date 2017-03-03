@@ -7,13 +7,12 @@
 
     <import resource="classpath*:servicesContext.xml"/>
 
-    <context:component-scan base-package="controllers"/>
-    <mvc:annotation-driven />
+    <mvc:resources mapping="/*" location="/static/" />
 
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
+    <context:component-scan base-package="controllers"/>
+
+    <bean id="jsonConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes" value="application/json" />
     </bean>
 </beans>

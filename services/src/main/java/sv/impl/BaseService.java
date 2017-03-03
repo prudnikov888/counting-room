@@ -18,7 +18,7 @@ import java.util.List;
 public class BaseService<P> implements IService<P> {
 
     @Autowired
-    private BaseDao<P> baseDao;
+    protected BaseDao<P> baseDao;
 
     @Override
     public void saveOrUpdate(P p) {

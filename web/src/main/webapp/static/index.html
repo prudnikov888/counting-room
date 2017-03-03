@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Counting Room</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="functions.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#entries").click(function(){
+                $.ajax({url: "/users", success: function(result){
+                    alert(result);
+                }});
+            });
+        });
+    </script>
+</head>
+<body>
+<div style="text-align: center">
+    <ul style="display: inline-block" class="nav nav-pills">
+        <li role="presentation"><a href="#">Accounts</a></li>
+        <li id="entries" role="presentation" class="active"><a href="#">Entries</a></li>
+        <li role="presentation"><a href="#">Households</a></li>
+        <li role="presentation"><a href="#">Users</a></li>
+    </ul>
+</div>
+<table class="table table-condensed" width="200">
+    <tr>
+        <td>
+            <b>Date</b>
+        </td>
+        <td>
+            <b>Account</b>
+        </td>
+        <td>
+            <b>Sum</b>
+        </td>
+    </tr>
+</table>
+<nav aria-label="...">
+    <ul class="pager">
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</nav>
+</body>
+</html>
+

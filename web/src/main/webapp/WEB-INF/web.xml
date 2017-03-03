@@ -16,14 +16,9 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
-    <!--TODO find out correct url-pattern-->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.form</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>/users/show.form</welcome-file>
-    </welcome-file-list>
 
 </web-app>

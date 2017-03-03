@@ -1,5 +1,7 @@
 package pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -29,9 +31,11 @@ public class User implements Serializable {
     @Column
     private String password;
 
-    @OneToMany (mappedBy = "user")
+    @JsonIgnore
+    @OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
     private List<Entry> entries;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn (name = "FK_household_id")
     private Household household;
@@ -71,6 +75,7 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
+    @JsonIgnore
     public List<Entry> getEntries() {
         return entries;
     }
@@ -79,6 +84,7 @@ public class User implements Serializable {
         this.entries = entries;
     }
 
+    @JsonIgnore
     public Household getHousehold() {
         return household;
     }
